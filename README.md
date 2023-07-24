@@ -60,25 +60,15 @@ POST /departments: Add a new Department to the system.
 
 POST /roles: Add a new Role to the system.
 
-PUT
+PUT /employees/{employeeId}/assignProject/{projectId}: Assign an existing Project to an existing Employee.
 
- /employees/{employeeId}/assignProject/{projectId}: 
- 
- Assign an existing Project to an existing Employee.
+PUT /employees/{employeeId}/assignRole/{roleId}: Assign an existing Role to an existing Employee.
 
-PUT /employees/{employeeId}/assignRole/{roleId}: 
+PUT /projects/{projectId}/assignDepartment/{departmentId}: Assign an existing Project to a different existing Department.
 
-Assign an existing Role to an existing Employee.
+GET /employees/{employeeId}: Get an Employee along with their list of Projects and Roles.
 
-PUT /projects/{projectId}/assignDepartment/{departmentId}:
-
-Assign an existing Project to a different existing Department.
-
-GET /employees/{employeeId}: 
-Get an Employee along with their list of Projects and Roles.
-
-GET /projects/{projectId}: 
-Get a Project along with its list of Employees and associated Department.
+GET /projects/{projectId}: Get a Project along with its list of Employees and associated Department.
 
 ## Exception Handling
 The Project Management System has robust exception handling to handle various scenarios, such as invalid data, missing resources, and other potential errors. Custom exception classes have been created for different error cases to provide meaningful error messages to users.
