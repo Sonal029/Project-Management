@@ -21,7 +21,7 @@ import com.project.repository.ProjectRepository;
 import com.project.repository.RoleRepository;
 
 @Service
-public class EmployeeService {
+public class ProjectManagementService {
 
 	@Autowired
 	private EmployeeRepository empRepo;
@@ -35,13 +35,32 @@ public class EmployeeService {
 	@Autowired
     private DepartmentRepository deptRepo;
 	
-	public String addEmployee(Employee employee)
+	public Employee addEmployee(Employee employee)
 	{
-		empRepo.save(employee);
-		return("Department added sucessfully");
+		return empRepo.save(employee);
 	}
 	
-	public Employee getListOfProject(Integer employeeId) throws ProjectException
+	public Role addRole(Role role)
+	{
+		return roleRepo.save(role);
+	}
+	
+	public Department addDepartment(Department department)
+	{
+		return deptRepo.save(department);
+	}
+	
+	public Project addProject(Project project)
+	{
+		return projectRepo.save(project);
+	}
+	
+	
+	
+	
+	
+	
+	public Employee getEmployeeWithProjectsAndRoles(Integer employeeId) throws ProjectException
 	{
 		Optional<Employee> optEmp =  empRepo.findById(employeeId);
 		if(optEmp.isPresent())
@@ -56,7 +75,7 @@ public class EmployeeService {
         }
 	}
 	
-	public Employee assignProject(Integer employeeId , Integer projectId, Integer roleId) throws ProjectException
+	public Employee assignProjectToEmployee(Integer employeeId , Integer projectId) throws ProjectException
 	{
 		Optional<Employee> optEmp =  empRepo.findById(employeeId);
 		if(optEmp.isPresent())
@@ -73,15 +92,6 @@ public class EmployeeService {
 	                throw new ProjectException("Project not found with ID: " + projectId);
 	            }
 
-	            Optional<Role> optionalRole = roleRepo.findById(roleId);
-	            if (optionalRole.isPresent()) {
-	                Role role = optionalRole.get();
-	                emp.getRoles().add(role);
-	                role.getEmployees().add(emp);
-	            } else {
-	                throw new ProjectException("Role not found with ID: " + roleId);
-	            }
-
 	            return empRepo.save(emp);
 		}
 		else
@@ -90,7 +100,7 @@ public class EmployeeService {
 		}
 	}
 
-	public Project getListofEmployeeBasedOnProjectId(Integer projectId) throws ProjectException
+	public Project getProjectWithEmployeesAndDepartment(Integer projectId) throws ProjectException
 	{
 		Optional<Project> optionalProject = projectRepo.findById(projectId);
 		
